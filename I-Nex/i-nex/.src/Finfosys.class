@@ -700,7 +700,7 @@ Public Sub Refresh_CPU_MHZ()
       CPU_CPU_MHZ.Add(sVal)
     End Select
   Next
-  Label12.text = CPU_CPU_MHZ[(Mid$(ComboBox1.Current.Text, 4))]
+  If Not IsNull(CPU_CPU_MHZ[(Mid$(ComboBox1.Current.Text, 4))]) Then Label12.text = CPU_CPU_MHZ[(Mid$(ComboBox1.Current.Text, 4))]
 End
 
 
