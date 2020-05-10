@@ -331,7 +331,7 @@ detailed_block(unsigned char *x, int in_extension)
 	    int is_cvt = 0;
 	    has_range_descriptor = 1;
 	    char *range_class = "";
-	    /* 
+	    /*
 	     * XXX todo: implement feature flags, vtd blocks
 	     * XXX check: ranges are well-formed; block termination if no vtd
 	     */
@@ -416,11 +416,11 @@ detailed_block(unsigned char *x, int in_extension)
 		    printf("Max active pixels per line: %d\n", max_h_pixels);
 
 		printf("Supported aspect ratios: %s %s %s %s %s\n",
-			x[14] & 0x80 ? "4:3" : "",
-			x[14] & 0x40 ? "16:9" : "",
-			x[14] & 0x20 ? "16:10" : "",
-			x[14] & 0x10 ? "5:4" : "",
-			x[14] & 0x08 ? "15:9" : "");
+			(x[14] & 0x80) ? "4:3" : "",
+			(x[14] & 0x40) ? "16:9" : "",
+			(x[14] & 0x20) ? "16:10" : "",
+			(x[14] & 0x10) ? "5:4" : "",
+			(x[14] & 0x08) ? "15:9" : "");
 		if (x[14] & 0x07)
 		    has_valid_range_descriptor = 0;
 
@@ -552,25 +552,25 @@ detailed_block(unsigned char *x, int in_extension)
 	    (x[13] + ((x[14] & 0x0F) << 8)),
 	   ha, ha + hso, ha + hso + hspw, ha + hbl, hborder,
 	   va, va + vso, va + vso + vspw, va + vbl, vborder,
-	   phsync, pvsync, syncmethod, x[17] & 0x80 ? " interlaced" : "",
+	   phsync, pvsync, syncmethod, (x[17] & 0x80) ? " interlaced" : "",
 	   stereo
 	  );
     /* XXX flag decode */
-    
+
     return 1;
 }
 
 static void
 do_checksum(unsigned char *x)
 {
-    printf("Checksum: 0x%hx", x[0x7f]);
+    printf("Checksum: 0x%hhx", x[0x7f]);
     {
 	unsigned char sum = 0;
 	int i;
 	for (i = 0; i < 128; i++)
 	    sum += x[i];
 	if (sum) {
-	    printf(" (should be 0x%hx)", (unsigned char)(x[0x7f] - sum));
+	    printf(" (should be 0x%hhx)", (unsigned char)(x[0x7f] - sum));
 	    has_valid_checksum = 0;
 	} else printf(" (valid)");
     }
@@ -875,7 +875,7 @@ cea_hdmi_block(unsigned char *x)
 	    printf("    Interlaced audio latency: %d\n", x[10 + b]);
 	    b += 2;
 	}
-	
+
 	if (x[8] & 0x20) {
 	    int mask = 0, formats = 0;
 	    int len_vic, len_3d;
@@ -1263,8 +1263,8 @@ parse_cea(unsigned char *x)
 		cea_block(x + i);
 	    }
 	}
-	
-	if (version >= 2) {    
+
+	if (version >= 2) {
 	    if (x[3] & 0x80)
 		printf("Underscans PC formats by default\n");
 	    if (x[3] & 0x40)
@@ -1338,7 +1338,7 @@ parse_displayid_detailed_timing(unsigned char *x)
 	stereo = "reserved";
 	break;
     }
-    printf("Type 1 detailed timing: aspect: %s, %s %s\n", aspect, x[3] & 0x80 ? "Preferred " : "", stereo);
+    printf("Type 1 detailed timing: aspect: %s, %s %s\n", aspect, (x[3] & 0x80) ? "Preferred " : "", stereo);
     pix_clock = x[0] + (x[1] << 8) + (x[2] << 16);
     ha = x[4] | (x[5] << 8);
     hbl = x[6] | (x[7] << 8);
@@ -1803,13 +1803,13 @@ int main(int argc, char **argv)
 	close(fd);
 
     if (ofd != -1) {
-	write(ofd, edid, edid_lines * 16);
+	(void)write(ofd, edid, edid_lines * 16);
 	close(ofd);
     }
 
     dump_breakdown(edid);
 
-    if (!edid || memcmp(edid, "\x00\xFF\xFF\xFF\xFF\xFF\xFF\x00", 8)) {
+    if (memcmp(edid, "\x00\xFF\xFF\xFF\xFF\xFF\xFF\x00", 8)) {
 	printf("No header found\n");
 	// return 1;
     }
@@ -1828,16 +1828,16 @@ int main(int argc, char **argv)
 	if (edid[0x11] > 0x0f) {
 	    if (edid[0x10] == 0xff) {
 		has_valid_year = 1;
-		printf("Made week %hd of model year %hd\n", edid[0x10],
+		printf("Made week %d of model year %d\n", edid[0x10],
 		       edid[0x11]);
 	    } else if (edid[0x11] + 90 <= ptm->tm_year) {
 		has_valid_year = 1;
-		printf("Made week %hd of %hd\n", edid[0x10], edid[0x11] + 1990);
+		printf("Made week %d of %d\n", edid[0x10], edid[0x11] + 1990);
 	    }
 	}
     }
 
-    printf("EDID version: %hd.%hd\n", edid[0x12], edid[0x13]);
+    printf("EDID version: %d.%d\n", edid[0x12], edid[0x13]);
     if (edid[0x12] == 1) {
 	if (edid[0x13] > 4) {
 	    printf("Claims > 1.4, assuming 1.4 conformance\n");
@@ -1914,10 +1914,10 @@ int main(int argc, char **argv)
 	    printf("Configurable signal levels\n");
 	}
 
-	printf("Sync: %s%s%s%s\n", sync & 0x08 ? "Separate " : "",
-	       sync & 0x04 ? "Composite " : "",
-	       sync & 0x02 ? "SyncOnGreen " : "",
-	       sync & 0x01 ? "Serration " : "");
+	printf("Sync: %s%s%s%s\n", (sync & 0x08) ? "Separate " : "",
+	       (sync & 0x04) ? "Composite " : "",
+	       (sync & 0x02) ? "SyncOnGreen " : "",
+	       (sync & 0x01) ? "Serration " : "");
     }
 
     if (edid[0x15] && edid[0x16])
@@ -2016,7 +2016,7 @@ int main(int argc, char **argv)
       }
       refresh = 60 + (b2 & 0x3f);
 
-      printf("  %dx%d@%dHz\n", x, y, refresh);
+      printf("  %ux%u@%uHz\n", x, y, refresh);
     }
 
     /* detailed timings */
