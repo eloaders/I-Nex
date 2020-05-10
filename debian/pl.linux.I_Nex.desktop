@@ -1,0 +1,22 @@
+[Desktop Entry]
+Version=1.1
+Type=Application
+Name=I-Nex
+GenericName=System Device Information
+TryExec=/usr/bin/i-nex.gambas
+Exec=i-nex.gambas
+Icon=i-nex
+Categories=System;
+Keywords=i-nex;hardware;library;inventory;
+Terminal=false
+StartupNotify=true
+StartupWMClass=i-nex.gambas
+DBusActivatable=false
+NoDisplay=false
+Hidden=false
+Actions=Library;
+
+[Desktop Action Library]
+Name=I-Nex Library
+Icon=i-nex
+Exec=i-nex.gambas --library
