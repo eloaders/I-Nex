@@ -1,18 +1,24 @@
 #!/usr/bin/make -f
-LSB_CS = 		$(shell lsb_release -cs)
 
-ifeq ($(LSB_CS),lucid)
-COMPRESSION = 		-- -z9 -Zgzip
-else
-COMPRESSION = 		-- -z9 -Zxz
-endif
-override_dh_autoreconf:
-	cd I-Nex && autoreconf -i
-override_dh_auto_configure:
-	dh_auto_configure --sourcedirectory=I-Nex
-override_dh_builddeb:
-	dh_builddeb $(COMPRESSION)
-override_dh_fixperms:
-	dh_fixperms
+DEB_BUILD_MAINT_OPTIONS = future=+lfs hardening=+all reproducible=+fixfilepath
+DH_INTERNAL_OPTIONS     = -v
+DH_VERBOSE              = 1
+export DEB_BUILD_MAINT_OPTIONS DH_INTERNAL_OPTIONS DH_VERBOSE
+
+
 %:
-	dh $@ --with autoreconf
+	dh $@
+
+
+override_dh_autoreconf:
+	dh_autoreconf -DI-Nex
+
+override_dh_auto_configure:
+	cd I-Nex && ./configure --build=x86_64-linux-gnu --prefix=/usr \
+		--sysconfdir=/etc --runstatedir=/run --localstatedir=/var \
+		--libdir=/usr/lib/x86_64-linux-gnu --includedir=/usr/include\
+		--infodir=/usr/share/info --mandir=/usr/share/man --disable-silent-rules
+
+override_dh_auto_install:
+	dh_auto_install --exclude=$(CURDIR)/debian/i-nex/usr/bin/i-nex \
+		--exclude=$(CURDIR)/debian/i-nex/usr/share/doc/i-nex/Changelog.md --
