@@ -1,0 +1,9 @@
+{
+  "name": "I-Nex",
+  "files": [
+    {
+      "directory": ".",
+      "recursive": 1
+    }
+  ]
+}
