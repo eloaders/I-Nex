@@ -329,7 +329,7 @@
 	- Fix Intel i5/7/3 logo size
 	- Removing unnecessary code for the detection of processor instructions.
 	- Add xdriinfo
-	- Remove two 
+	- Remove two
 	- New Manjaro logo
 	- Remove nets
 	- Speeding up detection of network interfaces.
@@ -524,7 +524,7 @@
 	- Don't show ComboBox to select info of processor[0-9] if TabPanel1.Current.Text = CPUID
 	- Update desktop file
 	- Update debian menu
-	- Remove not nedded png. And replace icons. Convert to xpm, not png
+	- Remove not needed png. And replace icons. Convert to xpm, not png
 	- additional_confflags
 	- Fix MMX Flags
 	- Update About Author email and homepage
@@ -604,7 +604,7 @@
 	- Remove $(RM_COM) $(RMDIR_OPT) `find . -name "screenfetch-dev"`
 	- change font labels All to Bold,8
 	- Try to fix broken detection of gtk, wm, themes etc
-	- 
+	-
 	- Add make patch & make unpatch
 	- Add [PATCH] I-Nex New GUI
 	- Merge branch 'master' of http://anongit.freedesktop.org/git/xorg/app/edid-decode
@@ -737,7 +737,7 @@
 	- Add new mail for FadeMind Developer in Credits Tab.
 	- Merge branch 'master' of http://anongit.freedesktop.org/git/xorg/app/edid-decode AND
 	- Replace Shell "Command" to File.Load (Faster method) And Add If Exist("sys/classdrm")
-	- Remove not nedded files
+	- Remove not needed files
 	- Remove env
 	- Update other files
 	- +  Debug "Good bye!" -  Object.Call(FCpudb, "_init") +  Object.Call(FCpudb, "_inits")
@@ -772,7 +772,7 @@
 	- Add gui for udisks --show-info and some fixes in GUI and more standards
 	- Make self detect kdesu, kdesudo, gksu
 	- Fix failed to build
-	- Reduce i-nex.run from 3.9MB to 2.9MB Remove libaries .so.0 so.0.0 so.0.0.0 not nedded
+	- Reduce i-nex.run from 3.9MB to 2.9MB Remove libaries .so.0 so.0.0 so.0.0.0 not needed
 	- Add to makefile: make self make self create i-nex.run file to install using command: sudo i-nex.run i-nex.run no need gambas3 libaries installed on system.
 	- Add i-nex bash script to run i-nex using i-nex command. Add i-nex script to debian/i-nex.install Remove stupid scripts from debian/rules
 	- Update control and rules

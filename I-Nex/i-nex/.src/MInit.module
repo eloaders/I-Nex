@@ -21,39 +21,39 @@ Public Sub _inits()
  If Access(User.Home & "/", gb.Write) = False Then
   Message.Error("Cannot write files to " & User.Home & "/.i-nex")
  Endif
- 
+
  If Exist(User.Home & "/.i-nex") Then
-  
+
   Logs("I-Nex config directory in user/home folder exist", Logger.Info)
   Logs("Try to remove files", Logger.Info)
-  Remove_Nedded_Files()
-  Logs("Copy nedded files", Logger.Info)
-  Copy_Nedded_Files()
+  Remove_Needed_Files()
+  Logs("Copy needed files", Logger.Info)
+  Copy_Needed_Files()
  Else
   Logs("i-nex in home folder not exist", Logger.Error)
-  Create_Nedded_Folders()
+  Create_Needed_Folders()
   Logs("i-nex in home folder created", Logger.Info)
  Endif
 
  Do_not_print = Null
- 
+
 End
 
-Private Function Remove_Nedded_Files()
- 
+Private Function Remove_Needed_Files()
+
  Try Kill User.Home & "/.i-nex/gputemp"
  Try Kill User.Home & "/.i-nex/i-nex-lspci"
 End
 
 
-Private Function Copy_Nedded_Files()
+Private Function Copy_Needed_Files()
  Logs("Copy gputemp from Data/gputemp to " & User.Home &/ ".i-nex/gputemp", Logger.Info)
  Try Copy "Data/gputemp" To User.Home &/ ".i-nex/gputemp"
  Try Copy "Data/i-nex-lspci" To User.Home &/ ".i-nex/i-nex-lspci"
 End
 
-Private Function Create_Nedded_Folders()
+Private Function Create_Needed_Folders()
 
  Try Mkdir User.Home & "/.i-nex/"
- 
+
 End
