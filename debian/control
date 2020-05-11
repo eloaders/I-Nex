@@ -14,7 +14,7 @@ Vcs-Browser: https://github.com/eloaders/I-Nex
 Rules-Requires-Root: no
 
 Package: i-nex
-Architecture: any
+Architecture: any-amd64 any-i386
 Depends: libcpuid14, mesa-utils, pastebinit, gambas3-gb-desktop (>= 3.8.4~),
  gambas3-gb-desktop-x11, gambas3-gb-form (>= 3.8.4~),
  gambas3-gb-image (>= 3.8.4~), gambas3-gb-qt5, gambas3-runtime (>= 3.8.4~),
