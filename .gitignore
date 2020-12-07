@@ -1,15 +1,28 @@
-#---- Gambas files to ignore (v1)
-.gambas/*
+# SPDX-FileCopyrightText: © 2016 eloaders <eloaders@linux.pl>
+# SPDX-FileCopyrightText: © 2020 Peter J. Mello <admin@petermello.net>
+#
+# SPDX-License-Identifier: CC0-1.0
+# ------------------------------------------------------------------------------
+
+
+#---- Gambas files to ignore (v5)
+*.gambas
+.lock
+*~
+core
+core.*
+vgcore
+vgcore.*
 .kdbg*
 .*.prof
-*.gambas
-*~
-core.*
-vgcore.*
-.lock
-core
-vgcore
+.lang/*.pot
+.gambas/*
+.settings
+.startup
+.list
+.info
 #----
+
 
 # Don't accidentally publish your GPG secret keyring
 secring.*

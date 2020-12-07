@@ -1,3 +1,9 @@
+i-nex (7.6.1-2) groovy; urgency=medium
+
+  * Rebuild against libcpuid15 from released with Ubuntu 20.10 "Groovy"
+
+ -- Peter J. Mello <admin@petermello.net>  Sun, 06 Dec 2020 14:58:39 -0800
+
 i-nex (7.6.1-1) focal; urgency=medium
 
   * New upstream release.
@@ -10,13 +16,14 @@ i-nex (7.6.1-1) focal; urgency=medium
   * Add About tab to interface for application metadata
   * Fix sorting of entries in drop-down menus
   * Improve removable drive recognition (LP: #1634466)
-  * d/control: Bump to debhelper level 12 via B-D on debhelper-compat
-  * d/control: Drop versions on dependencies with values < oldoldstable archive
-  * d/control: Bump S-V to 4.5.0, removed debian/triggers file.
-  * d/control: Add R³ field with 'no' value
-  * d/copyright: Add early contributors and update header URL to https
-  * d/copyright: Update proprietary usage statements and remove those no longer
-    included in package
+  * debian/control:
+    + Bump to debhelper level 12 via B-D on debhelper-compat
+    + Bump S-V to 4.5.0, removed debian/triggers file
+    + Add R³ field with 'no' value
+    - Drop versions on dependencies with values < oldoldstable archive
+  * d/copyright:
+    + Add early contributors and update header URL to https
+    * Update proprietary usage statements, remove ones no longer inc. in package
 
  -- Peter J. Mello <admin@petermello.net>  Tue, 05 May 2020 16:37:56 -0700
 

@@ -9,8 +9,8 @@
   Resizable = False
   { PictureBox1 PictureBox
     Move(36,0,402,462)
-    Stretch = True
     Border = Border.Plain
+    Stretch = True
   }
   { Button1 Button
     Move(408,510,66,30)

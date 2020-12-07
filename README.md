@@ -1,16 +1,34 @@
-# I-Nex: a system hardware & configuration inventory tool
+# I-Nex: a system hardware & configuration inventory tool [![I-Nex logo](I-Nex/i-nex/logo/i-nex.0.4.x.png)](https://i-nex.linux.pl/)
 
-[![I-Nex logo](I-Nex/i-nex/logo/i-nex.0.4.x.png)](https://i-nex.linux.pl/) [![Screenshot](http://i-nex.linux.pl/wp-content/uploads/2016/09/09072016074858692-1.png)](http://i-nex.linux.pl/screenshots/)
+[SPDX-FileCopyrightText: © 2014-2016 eloaders <eloaders@linux.pl>]::
+[SPDX-FileCopyrightText: © 2020 Peter J. Mello <admin@petermello.net>]::
+
+[SPDX-License-Identifier: CC0-1.0]::
+
+[![Screenshot](http://i-nex.linux.pl/wp-content/uploads/2016/09/09072016074858692-1.png)](https://i-nex.linux.pl/screenshots/)
 
 **[Homepage](https://i-nex.linux.pl/)**
 
-I-Nex is an application that gathers information about the hardware components installed in your system the configuration of the software using it, then neatly organizes it using an user interface similar to the popular Windows tool CPU-Z.
+I-Nex is an application that gathers information about the hardware components
+installed in your system the configuration of the software using it, then neatly
+organizes it using an user interface similar to the popular Windows tool CPU-Z.
 
-I-Nex can display information for the following components: CPU, GPU, Motherboard, Sound, Hard disks, RAM, Network and USB as well as some system info like the hostname, Linux distribution and version, Xorg, GCC, GLX versions and Linux Kernel info.
+I-Nex can display information for the following components: CPU, GPU, RAM,
+motherboard, sound, permanent and removable storage devices (hard drives),
+network interfaces and USB, as well as some system info like the hostname,
+GNU/Linux distribution and version, Xorg, GCC, GLX versions and Linux kernel
+info.
 
-Besides being able to display hardware information, I-Nex can also generate an advanced report for which you can select what to include and optionally send the report to a service such as Pastebin (and others). It also features an option to take a screenshot of the I-Nex window directly from the application.
+Besides being able to display hardware information, I-Nex can also generate an
+advanced report with options to select what to include and, optionally, send the
+report to a service such as Pastebin (and others) to easily share with someone
+who is trying to help you troubleshoot a problem remotely. It also features an
+option to take a screenshot of the I-Nex window directly from the application.
 
-The difference between I-Nex and the other hardware information GUI tools available for Linux is that the information is better organized and is displayed faster (than lshw-gtk for instance). Also, the hardware information is presented in a way that’s easier to understand than other such tools.
+The difference between I-Nex and the other hardware information GUI tools
+available for Linux is that the information is better organized, displayed
+faster (when compared to lshw-gtk, for instance) and presented in a way that’s
+easier to understand.
 
 ## Tested on
 
@@ -36,40 +54,38 @@ The difference between I-Nex and the other hardware information GUI tools availa
 * pastebinit
 * [libcpuid](https://github.com/anrieff/libcpuid)
 
-### Build in Ubuntu
+## Debian/Ubuntu/Linux Mint and other dpkg-based distributions (.deb package)
 
-Adding required repositories:
+### Install pre-built binary package from third-party repositories
 
-```bash
-sudo add-apt-repository -y ppa:gambas-team/gambas3 && \
-sudo add-apt-repository -yu ppa:i-nex-development-team/i-nex
-```
+ 1. Add required repositories:
+    [Gambas 3 Stable PPA](https://launchpad.net/~gambas-team/+archive/ubuntu/gambas3)
+    and [I-Nex PPA](https://launchpad.net/~i-nex-development-team/+archive/ubuntu/i-nex)
+    ```bash
+    sudo add-apt-repository -yn ppa:gambas-team/gambas3
+    sudo add-apt-repository -yu ppa:i-nex-development-team/i-nex
+    ```
+ 1. Install with apt:
+    ```bash
+    sudo apt install i-nex
+    ```
 
-Install from repository:
+### Build package from source
 
-```bash
-sudo apt install i-nex
-```
+ 1. Install required build dependency packages:
+    ```bash
+    sudo apt install debhelper devscripts git lsb-release pkg-config \
+    libcpuid-dev gambas3-devel gambas3-gb-desktop gambas3-gb-desktop-x11 \
+    gambas3-gb-form gambas3-gb-image gambas3-gb-qt5
+    ```
+ 1. Download source code, compile package & install with apt:
+    ```bash
+    git clone https://github.com/i-nex/I-Nex.git && cd I-Nex
+    debuild -b --no-sign
+    sudo apt install ../i-nex*.deb
+    ```
 
-## Build Debian package from source
-
-Installing dependencies:
-
-```bash
-sudo apt install debhelper devscripts git imagemagick lsb-release pkg-config \
-libcpuid-dev gambas3-dev gambas3-gb-desktop gambas3-gb-desktop-x11 \
-gambas3-gb-form gambas3-gb-image gambas3-gb-qt5
-```
-
-Download source code, compile & install:
-
-```bash
-git clone https://github.com/i-nex/I-Nex.git && cd I-Nex
-debuild -b --no-sign
-sudo apt install ../i-nex*.deb
-```
-
-## Install RPM package
+## Fedora/CentOS/RHEL/SUSE and other dnf-based distributions (.rpm package)
 
 ### Fedora (≳ 30)
 
@@ -143,14 +159,14 @@ unzip ~/rpmbuild/SOURCES/I-Nex-<GITLONG>.zip -d <TEMPSRCDIR>
 cp <TEMPSRCDIR>/dists/redhat/i-nex.spec ~/rpmbuild/SPECS
 ```
 
-> _NOTE:__Edit %define _gittag_, _gitlong_, and _gitdate_ at the top of ~/rpmbuild/SPECS/i-nex.spec
+> _**NOTE:**_ Edit %define _gittag_, _gitlong_, and _gitdate_ at the top of ~/rpmbuild/SPECS/i-nex.spec
 
 `rpmbuild -bb ~/rpmbuild/SPECS/i-nex.spec`
 
 ### Build lastest git snapshot I-Nex release in Arch Linux
 
 ```bash
-yaourt -S i-nex-git --needed --noconfirm
+yay -S i-nex-git --needed --noconfirm
 ```
 
 ### Install lastest backported I-Nex release in Manjaro Linux
@@ -159,27 +175,14 @@ yaourt -S i-nex-git --needed --noconfirm
 sudo pacman -S i-nex
 ```
 
-### Main guide build app from sources
+## Build and install from source (via git clone)
 
-| NOTE: Don't report issues about manual build I-Nex app from sources based on this guide. First of all be sure you have installed all dependencies. Changes specify in pastebinit and inex.mk via sed command are needed for Arch Linux here. In Your distro these values can be different. |
-
-## Downloading sources
+| _**NOTE:** Don't report issues about manual builds from source based on this guide. Most build failures arise from failing to first correctly install all the needed dependencies._ |
 
 ```bash
-git clone https://github.com/eloaders/I-Nex.git
-```
-
-## Build and install app from sources
-
-```bash
-cd I-Nex
-sed -i 's|python3$|python2|' pastebinit
-sed -i -e 's|^STATIC.*|STATIC = false|' i-nex.mk
-sed -i -e 's|^UDEV_RULES_DIR.*|UDEV_RULES_DIR = /usr/lib/udev/rules.d|' i-nex.mk
-cd I-Nex
-autoreconf -i
-./configure --prefix=/usr
-cd ..
-make
+git clone https://github.com/i-nex/I-Nex.git && cd I-Nex
+autoreconf -fi ./I-Nex
+./I-Nex/configure --prefix=/usr
+make -j$(nproc)
 sudo make install
 ```

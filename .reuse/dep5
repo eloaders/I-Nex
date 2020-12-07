@@ -9,22 +9,6 @@ Copyright: 2006-2012, Stéphane Graber <stgraber@stgraber.org>
            2011-2019, eloaders <eloaders@linux.pl>
 License: LGPL-3.0-or-later
 
-Files: .bzrignore
-Copyright: 2008-2012, Stéphane Graber <stgraber@stgraber.org>
-                2020, Peter J. Mello <admin@petermello.net>
-License: CC0-1.0
-
-Files: README.md
-Copyright: 2014-2016, eloaders <eloaders@linux.pl>
-                2020, Peter J. Mello <admin@petermello.net>
-License: CC0-1.0
-
-Files: pl.linux.i_nex.metainfo.xml
-Copyright: 2019, Martin Gansser <martinkg@fedoraproject.org>
-           2019, eloaders <eloaders@linux.pl>
-           2020, Peter J. Mello <admin@petermello.net>
-License: CC0-1.0
-
 Files: I-Nex/i-nex/Data/GPU_LOGO/*
 Copyright: 2006-2020, Intel Corporation <trademarks.and.brands@intel.com>
            1994-2020, Advanced Micro Devices, Inc. <customer.inquiry@amd.com>
@@ -64,6 +48,17 @@ Copyright: 2006-2012, Adam Jackson <ajax@nwnk.net>
            2020, Peter J. Mello <admin@petermello.net>
 License: MIT AND GPL-3.0-or-later
 
+Files: pl.linux.I_Nex.metainfo.xml
+Copyright: 2019, Martin Gansser <martinkg@fedoraproject.org>
+           2019, eloaders <eloaders@linux.pl>
+           2020, Peter J. Mello <admin@petermello.net>
+License: MIT
+
+Files: release.conf
+Copyright: 2011, Stéphane Graber <stgraber@stgraber.org>
+           2012, eloaders <eloaders@linux.pl>
+License: GPL-3.0-or-later
+
 Files: debian/*
 Copyright: 2011-2016, eloaders <eloaders@linux.pl>
            2020, Peter J. Mello <admin@petermello.net>
@@ -86,15 +81,6 @@ License: LGPL-3.0-or-later
  On Debian(-based) GNU/Linux systems, the complete text of the GNU Lesser
  General Public License, version 3, can be found in the file
  `/usr/share/common-licenses/LGPL-3'.
-
-License: CC0-1.0
- To the extent possible under law, the author(s) have waived all copyright and
- related or neighboring rights to this software. This work is published from
- Cuba and is distributed without any warranty
- .
- On Debian(-based) GNU/Linux systems, the complete text of the Creative Commons
- Zero Universal License, v1.0, can be found in the file
- `/usr/share/common-licenses/CC0-1.0'.
 
 License: LicenseRef-Intel-Acknowledgment
  3D XPoint, Altera, APEX, AnyWAN, Arria, Avalon, Axxia, BunnyPeople, Celeron,

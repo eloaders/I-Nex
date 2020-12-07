@@ -1,4 +1,11 @@
+# SPDX-FileCopyrightText: © 2020 Peter J. Mello <admin@petermello.net>
+#
+# SPDX-License-Identifier: MPL-2.0
+#
+# Version: 1.1.0 (Using <https://semver.org/>)
+# Updated: 2020-08-12
 # Visit <https://editorconfig.org/> for more information.
+# ------------------------------------------------------------------------------
 
 root = true
 
@@ -22,9 +29,8 @@ trim_trailing_whitespace = false
 [*.py]
 indent_size              = 4
 
-[**/Makefile*]
+[**/{Makefile*,rules}]
 indent_style             = tab
-tab_width                = 4
 
 [ChangeLog]
 indent_style             = tab
