@@ -1,89 +1,80 @@
 #!/usr/bin/make -f
+# -*- mode: makefile-gmake; coding: utf-8 -*-
 
 include i-nex.mk
+
+all: make
+
 make: build-inex build-json
 
-install: install-pixmaps install-desktop-files install-manpages install-changelogs install-json install-inex install-udev-rule link-inex
-clean: clean-json clean-inex clean-all
+install: install-inex install-json install-changelogs install-desktop-files \
+	install-manpages install-pixmaps install-udev-rule link-inex
+
+clean: clean-inex clean-json
+
 distclean: clean
-sysclean: uninstall rmgambas
+	find . \( -name '.gambas' -o -name '*.gambas' -o -name '.directory' \) \
+		-type d -execdir $(RM) $(RMDIR_OPT) '{}' \+
+	cd I-Nex && $(RM) $(RMDIR_OPT) ./i-nex/.gambas ./autom4te.cache
+	cd I-Nex && $(RM) config.log config.status configure install-sh missing
+
+sysclean:
+	@echo -e '$(OK_BGCOLOR)Uninstalling I-Nex...$(NO_COLOR)'
+	$(MAKE) -C I-Nex uninstall
+
 build-inex:
-
-	@echo -e '\033[1;32mBuild I-Nex...\033[0m'
+	@echo -e '$(OK_BGCOLOR)Building I-Nex...$(NO_COLOR)'
 	$(MAKE) -C I-Nex
-	
+
 build-json:
-
-	@echo -e '\033[1;32mBuild JSON...\033[0m'
+	@echo -e '$(OK_BGCOLOR)Building EDID parser...$(NO_COLOR)'
 	$(MAKE) -C JSON
-	
-install-desktop-files:
-	@echo -e '\033[1;32mCreate nedded dirs...\033[0m'
-	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
-	$(INSTALL) 0755 debian/i-nex.desktop $(DESTDIR)$(PREFIX)/share/applications/
-	$(INSTALL) 0755 debian/i-nex-library.desktop $(DESTDIR)$(PREFIX)/share/applications/
-	
-install-pixmaps:
 
-	@echo -e '\033[1;32mInstall pixmaps...\033[0m'
-	$(MAKE) -C pixmaps install
-	
-install-manpages:
-
-	@echo -e '\033[1;32mInstall manpages...\033[0m'
-	$(MAKE) -C manpages install
-	
-install-json:
-
-	@echo -e '\033[1;32mInstall JSON...\033[0m'
-	$(MAKE) -C JSON install
-	
-install-inex:
-
-	@echo -e '\033[1;32mInstall I-Nex...\033[0m'
+install-inex: build-inex
+	@echo -e '$(OK_BGCOLOR)Installing I-Nex...$(NO_COLOR)'
 	$(MAKE) -C I-Nex install
 
+install-json: build-json
+	@echo -e '$(OK_BGCOLOR)Installing EDID parser...$(NO_COLOR)'
+	$(MAKE) -C JSON install
+
 install-changelogs:
+	@echo -e '$(OK_BGCOLOR)Installing Changelogs...$(NO_COLOR)'
+	$(INSTALL_DM)0644 -t $(DESTDIR)$(PREFIX)$(DOCSDIR) $(CURDIR)/Changelog.md
 
-	@echo -e '\033[1;32mInstalling Changelogs...\033[0m'
-	mkdir -p $(DESTDIR)$(PREFIX)$(DOCSDIR)
-	install -Dm644 Changelog.md $(DESTDIR)$(PREFIX)$(DOCSDIR)
+install-desktop-files:
+	@echo -e '$(OK_BGCOLOR)Installing XDG desktop/metainfo files...$(NO_COLOR)'
+	$(INSTALL_DM)0644 -t $(DESTDIR)$(PREFIX)/share/applications \
+		pl.linux.i_nex.desktop
+	$(INSTALL_DM)0644 -t $(DESTDIR)$(PREFIX)/share/metainfo \
+		pl.linux.i_nex.metainfo.xml
 
-clean-json:
+install-manpages:
+	@echo -e '$(OK_BGCOLOR)Installing manpages...$(NO_COLOR)'
+	$(MAKE) -C manpages
 
-	$(MAKE) -C JSON clean
-	
-clean-inex:
-
-	if test -f "I-Nex/Makefile" ; then $(MAKE) -C I-Nex distclean ; fi
+install-pixmaps:
+	@echo -e '$(OK_BGCOLOR)Installing pixmaps...$(NO_COLOR)'
+	$(MAKE) -C pixmaps
 
 install-udev-rule:
+	@echo -e '$(OK_BGCOLOR)Installing udev rules...$(NO_COLOR)'
+	$(INSTALL_DM)0644 $(CURDIR)/i2c_smbus.rules \
+		$(DESTDIR)$(UDEV_RULES_DIR)/60-i2c_smbus.rules
 
-	$(INSTALL_DM) 600 i2c_smbus.rules $(DESTDIR)$(UDEV_RULES_DIR)/i2c_smbus.rules
+link-inex: install-inex
+	install -d $(DESTDIR)$(bindir)
+	ln -s $(DESTDIR)$(bindir)/i-nex.gambas $(DESTDIR)$(bindir)/i-nex
 
-clean-all:
+clean-inex:
+ifneq (,$(wildcard I-Nex/Makefile))
+	$(MAKE) -C I-Nex distclean
+endif
 
-	$(RM_COM) $(RMDIR_OPT) `find . -name ".gambas"`
-	$(RM_COM) $(RMDIR_OPT) `find . -name "*.gambas"`
-	$(RM_COM) $(RMDIR_OPT) `find . -name ".directory"`
-	$(RM_COM) $(RMFILE_OPT) I-Nex/i-nex/.lang/*.pot
-	$(RM_COM) $(RMFILE_OPT) I-Nex/i-nex/.lang/*.po
-	$(RM_COM) $(RMFILE_OPT) I-Nex/i-nex/.lang/*.mo
-	$(RM_COM) $(RMDIR_OPT) I-Nex/i-nex/.gambas
-	$(RM_COM) $(RMDIR_OPT) debian/files
-	$(RM_COM) $(RMDIR_OPT) debian/i-nex
-	$(RM_COM) $(RMDIR_OPT) debian/i-nex.debhelper.log
-	$(RM_COM) $(RMDIR_OPT) debian/i-nex.postinst.debhelper
-	$(RM_COM) $(RMDIR_OPT) debian/i-nex.postrm.debhelper
-	$(RM_COM) $(RMDIR_OPT) debian/i-nex.substvars
-	$(RM_COM) $(RMDIR_OPT) debian/changelog1
-	$(RM_COM) $(RMDIR_OPT) I-Nex/autom4te.cache
-	$(RM_COM) $(RMDIR_OPT) I-Nex/config.log
-	$(RM_COM) $(RMDIR_OPT) I-Nex/config.status
-	$(RM_COM) $(RMDIR_OPT) I-Nex/configure
-	$(RM_COM) $(RMDIR_OPT) I-Nex/install-sh
-	$(RM_COM) $(RMDIR_OPT) I-Nex/missing
+clean-json:
+	$(MAKE) -C JSON clean
 
-
-link-inex:
-	ln -s /usr/bin/i-nex.gambas $(DESTDIR)$(bindir)/i-nex
+.PHONY: all make install clean distclean sysclean build-inex build-json \
+	install-inex install-json install-changelogs install-desktop-files \
+	install-manpages install-pixmaps install-udev-rule link-inex clean-inex \
+	clean-json

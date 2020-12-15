@@ -1,0 +1,5 @@
+# Upstream release tarballs are not cryptographically signed
+i-nex source: debian-watch-does-not-check-gpg-signature
+
+#Switched from native package format to quilt for PPA building
+i-nex source: odd-historical-debian-changelog-version 7.6.0 (for non-native)

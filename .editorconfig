@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: © 2020 Peter J. Mello <admin@petermello.net>
+#
+# SPDX-License-Identifier: MPL-2.0
+#
+# Version: 1.1.0 (Using <https://semver.org/>)
+# Updated: 2020-08-12
+# Visit <https://editorconfig.org/> for more information.
+# ------------------------------------------------------------------------------
+
+root = true
+
+[*]
+indent_style             = space
+indent_size              = 2
+tab_width                = 4
+end_of_line              = lf
+charset                  = utf-8
+trim_trailing_whitespace = true
+insert_final_newline     = true
+max_line_length          = off
+
+[*.js]
+indent_style             = tab
+
+[*.{md,txt}]
+indent_size              = 4
+trim_trailing_whitespace = false
+
+[*.py]
+indent_size              = 4
+
+[**/{Makefile*,rules}]
+indent_style             = tab
+
+[ChangeLog]
+indent_style             = tab
+indent_size              = 4

@@ -1,17 +1,20 @@
 #!/usr/bin/make -f
+# -*- mode: makefile-gmake; coding: utf-8 -*-
 
-include ../i-nex.mk 
-MANPAGE_FILES=$(wildcard *.1)
+include ../i-nex.mk
 
-install: install-man compress-man
+MANPAGE_FILES = $(wildcard *.1)
+
+all: install
+
+install: | install-man compress-man
+
 install-man:
+	@echo -e '$(OK_BGCOLOR)Installing manpages...$(NO_COLOR)'
+	$(INSTALL_DM)0644 -t $(DESTDIR)$(PREFIX)$(MANDIR) $(MANPAGE_FILES)
 
-	@echo -e '\033[1;32mInstalling Man pages 1...\033[0m'
-	mkdir -p "$(DESTDIR)$(PREFIX)$(MANDIR)/"
-	install -Dm644 $(MANPAGE_FILES) "$(DESTDIR)$(PREFIX)$(MANDIR)/"
-	
-compress-man:
-	@echo -e '\033[1;32mCompress Man pages 1...\033[0m'
-	gzip -9 "$(DESTDIR)$(PREFIX)$(MANDIR)/i-nex-edid.1"
-	gzip -9 "$(DESTDIR)$(PREFIX)$(MANDIR)/i-nex.1"
-	gzip -9 "$(DESTDIR)$(PREFIX)$(MANDIR)/i-nex.gambas.1"
+compress-man: install-man
+	@echo -e '$(OK_BGCOLOR)Compressing manpages...$(NO_COLOR)'
+	$(COMPRESS) $(addprefix $(DESTDIR)$(PREFIX)$(MANDIR)/,$(MANPAGE_FILES))
+
+.PHONY: all install install-man compress-man

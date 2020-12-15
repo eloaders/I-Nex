@@ -36,7 +36,7 @@ Public Sub Form_Open()
   Dim sLine As String
   Dim MTRR As New String[]
   Label74.Text = "I-Nex " & Application.Version
-  
+
   ''Okno na środku
   ''
   If Settings["Window/X"] = Null Then
@@ -62,10 +62,10 @@ Public Sub Form_Open()
        Orientation_Bottom_Click()
      End Select
   Endif
-  
+
   Logs("Call to MLibcpuid14", Logger.Info)
        Object.Call(MLibcpuid14, "main")
-  
+
   Try data = Open "/proc/mtrr" For Input
 
   While Not Eof(data)
@@ -73,9 +73,9 @@ Public Sub Form_Open()
         MaxCount += 1
         MTRR.Add(sLine, MaxCount)
   Wend
-  
+
   Try Close #data
-  
+
   ' If Exist("/proc/mtrr", True) Then
   '    For i = 1 To MaxCount
   '        Label[i] = New Label(ScrollView2)
@@ -91,22 +91,22 @@ Public Sub Form_Open()
   '                   End With
   '   Next
   ' Endif
-  
+
     'Procesor
   Logs("Check available procesors", Logger.Info)
   ComboBox1.List = Dir("/sys/devices/system/cpu/", "cpu[0-9]").Sort(gb.Ascent)
   'Locate kernels
   MaxCount = 0
   ' Try data = Shell "ls /boot | grep 'vmlinuz*'" For Input
-  ' 
+  '
   ' While Not Eof(data)
   '       Line Input #data, sLine
   '       MaxCount += 1
   '       ListBox1.Add(sLine, MaxCount)
   ' Wend
-  ' 
+  '
   ' Try Close #data
-  
+
   ListBox1.List = Dir("/boot/", "vmlinuz*")
   Label228.Text = "Installed Kernels: " & CString(Dir("/boot/", "vmlinuz*").Count)
   'End of locate kernels
@@ -117,7 +117,7 @@ Public Sub Form_Open()
   Logs(Settings.DefaultDir, Logger.Info)
       Finfosys.TabStrip1[9].Visible = False
       Finfosys.TabStrip1[11].Visible = False
-  Logs("Call to MInit for copy nedded files to I-Nex config dir in User.Home", Logger.Info)
+  Logs("Call to MInit for copy needed files to I-Nex config dir in User.Home", Logger.Info)
       Object.Call(MInit, "_inits")
   Logs("Settings default dir = " & Settings.DefaultDir & "", Logger.Info)
   Logs("Check for Battery", Logger.Info)
@@ -144,7 +144,7 @@ Public Sub Form_Open()
   Timer1.Start
   Timer1.Delay = 1500
   TextLabel21.Visible = False
-  
+
  Logs("Set Combobox to cpu0", Logger.Info)
  ComboBox1.Index = 0 ''Ustawienie combobox na Procesor0 / W przeciwnym wypadku nie pokaże nic
 'Uruchomienie instrukcji dla poszczególnych zakładek w celu wydobycia informacji z systemu
@@ -181,7 +181,7 @@ Public Sub grafika()
 
   Try Exec ["/bin/bash", User.Home &/ ".i-nex/i-nex-lspci", "nonprefetchable"] Wait To memory_non_prefetchable
   Try Exec ["/bin/bash", User.Home &/ ".i-nex/i-nex-lspci", "prefetchable"] Wait To memory_prefetchable
-  
+
   Try Exec ["glxinfo"] Wait To GLIXNFO
   GLX = Split(GLIXNFO, "\n", "")
   For Each strings In GLX
@@ -231,18 +231,18 @@ Public Sub grafika()
   Label108.Text = "Present resolution: " & Replace(rozdzielczosc, "\n", "")
   TextBox1.Text = RTrim(Replace(gpu, "\n", ""))
   Label109.Text = Replace(available_resolutions, "\n", "")
-  
+
   'GPU Logo Detection
   If RTrim(Replace(gpu, "\n", "")) Like "*ati*" Then
   Finfosys.PictureBox1.Picture = Picture["Data/GPU_LOGO/ati.png"]
   Finfosys.PictureBox1.Name = "ati.png"
   Endif
-  
+
   If RTrim(Replace(gpu, "\n", "")) Like "*intel*" Then
   Finfosys.PictureBox1.Picture = Picture["Data/GPU_LOGO/intel.png"]
   Finfosys.PictureBox1.Name = "intel.png"
   Endif
-  
+
   If RTrim(Replace(gpu, "\n", "")) Like "*nVidia*" Then
   Finfosys.PictureBox1.Picture = Picture["Data/GPU_LOGO/nvidia.png"]
   Finfosys.PictureBox1.Name = "nvidia.png"
@@ -252,13 +252,13 @@ Public Sub grafika()
   Finfosys.PictureBox1.Picture = Picture["Data/GPU_LOGO/virtualbox.png"]
   Finfosys.PictureBox1.Name = "virtualbox.png"
   Endif
-  
+
   If RTrim(Replace(gpu, "\n", "")) Like "*VMware*" Then
   Finfosys.PictureBox1.Picture = Picture["Data/GPU_LOGO/vmware.png"]
   Finfosys.PictureBox1.Name = "vmware.png"
   Endif
   'GPU Logo Detection End
-  
+
   ComboBox8.Index = 1
 End
 
@@ -303,14 +303,14 @@ Public Sub Wykrywanie_procesorow()
   Endif
   For Each sLine In CPUINFO_PROC.Lines
     sLine = Trim(sLine)
-    If Not sLine Then Continue 
+    If Not sLine Then Continue
 
     iPos = InStr(sLine, ":")
     If iPos = 0 Then Continue
 
     sKey = Trim(Left$(sLine, iPos - 1))
     sVal = Trim(Mid$(sLine, iPos + 1))
-    
+
     Select Case sKey
       Case "processor"
        CPU_PROCESSOR.Add(sVal)
@@ -364,9 +364,9 @@ Public Sub Wykrywanie_procesorow()
       Case "power management"
        CPU_POWER_MANAGEMENT.Add(sVal)
     End Select
-  
+
   Next
-  
+
   Close #CPUINFO_PROC
 
   Try TextBox32.Text = Replace(CPU_MODEL_NAME[CFloat(ComboBox1.Index)], "\n", "")
@@ -382,7 +382,7 @@ Public Sub Wykrywanie_procesorow()
   Try Label10.Text = "Bogomips: " & Replace(CPU_BOGOMIPS[CFloat(ComboBox1.Index)], "\n", "")
   Try TextBox35.Text = "Address sizes: " & Replace(CPU_ADRESS_SIZES[CFloat(ComboBox1.Index)], "\n", "")
   Try Label15.Text = "Power mangament: " & Replace(CPU_POWER_MANAGEMENT[CFloat(ComboBox1.Index)], "\n", "")
-  
+
   Try INDEX0 = Replace(File.Load("/sys/devices/system/cpu/" & Subst(ComboBox1.Current.Text) & "/cache/index0/size"), "\n", "")
   Try INDEX1 = Replace(File.Load("/sys/devices/system/cpu/" & Subst(ComboBox1.Current.Text) & "/cache/index1/size"), "\n", "")
   Try INDEX2 = Replace(File.Load("/sys/devices/system/cpu/" & Subst(ComboBox1.Current.Text) & "/cache/index2/size"), "\n", "")
@@ -407,7 +407,7 @@ Public Sub Wykrywanie_procesorow()
   Try NUMOFSETS1 = Replace(File.Load("/sys/devices/system/cpu/" & Subst(ComboBox1.Current.Text) & "/cache/index1/number_of_sets"), "\n", "")
   Try NUMOFSETS2 = Replace(File.Load("/sys/devices/system/cpu/" & Subst(ComboBox1.Current.Text) & "/cache/index2/number_of_sets"), "\n", "")
   Try NUMOFSETS3 = Replace(File.Load("/sys/devices/system/cpu/" & Subst(ComboBox1.Current.Text) & "/cache/index3/number_of_sets"), "\n", "")
-  
+
   Try Label1.Text = Subst("Cache L&1  &2  &3  WOA: &4  CLS: &5  NOS: &6",
                          L0LEVEL,
                          INDEX0,
@@ -450,9 +450,9 @@ Public Sub Wykrywanie_procesorow()
                          L2WAYS,
                          COHERENCY2,
                          NUMOFSETS2)
-  
+
   If IsNull(L3LEVEL) = False Then
-   
+
     Try Label5.Text = Subst("Cache L&1  &2  &3  WOA: &4  CLS: &5  NOS: &6",
                          L3LEVEL,
                          INDEX3,
@@ -470,7 +470,7 @@ Public Sub Wykrywanie_procesorow()
    Else
     Label5.Visible = False
   Endif
-  
+
   Logs("Get info from database", Logger.Info)
   Object.Call(FCpudb, "_inits")
 End
@@ -483,17 +483,17 @@ Public Sub Refresh_CPU_MHZ()
   Dim sVal As String
   Dim CPU_CPU_MHZ As New String[]
   CPUINFO_PROC = Open "/proc/cpuinfo"
-  
+
   For Each sLine In CPUINFO_PROC.Lines
     sLine = Trim(sLine)
-    If Not sLine Then Continue 
+    If Not sLine Then Continue
 
     iPos = InStr(sLine, ":")
     If iPos = 0 Then Continue
 
     sKey = Trim(Left$(sLine, iPos - 1))
     sVal = Trim(Mid$(sLine, iPos + 1))
-    
+
     Select Case sKey
      Case "cpu MHz"
       CPU_CPU_MHZ.Add(sVal)
@@ -524,7 +524,7 @@ Public Sub dospam_uptime()
   Dim SwapFree As Float
   Dim Active As Float
   Dim MEMINFO_FILE As File
-  
+
   If IsNull(MEMINFO_FILE) = True Then
    MEMINFO_FILE = Open "/proc/meminfo"
   ' Else
@@ -533,11 +533,11 @@ Public Sub dospam_uptime()
 
     For Each sLine In MEMINFO_FILE.Lines
     sLine = Trim(sLine)
-    If Not sLine Then Continue 
-    
+    If Not sLine Then Continue
+
     iPos = InStr(sLine, ":")
     If iPos = 0 Then Continue
-    
+
     sKey = Trim(Left$(sLine, iPos - 1))
     sVal = Trim(Mid$(sLine, iPos + 1))
     sVal = Replace(sVal, "kB", Null)
@@ -561,9 +561,9 @@ Public Sub dospam_uptime()
       Case "Active"
         Active = Val(sVal) / 1000
     End Select
-  
+
   Next
-  
+
   Close #MEMINFO_FILE
 
   'Solution
@@ -580,7 +580,7 @@ Public Sub dospam_uptime()
   Label91.Text = "Swap Total: " & SwapTotal & "MB"
   Label265.Text = "Swap Free: " & SwapFree & "MB"
   Label266.Text = "Active: " & Active & "MB"
-     
+
   Try ProgressBar1.Value = (MemTotal - (MemFree + Buffers + Cached)) / MemTotal
   Try ProgressBar4.Value = (SwapTotal - SwapFree) / SwapTotal
   Try MUptime.Main()
@@ -602,7 +602,7 @@ Public Sub battery_info()
  TextBox18.Text = battery.serial_number
  TextBox19.Text = battery.battery_type
  TextBox20.Text = battery.OEM_info
- 
+
  Logs("Get information Active Battery Done", Logger.Info)
  If Exist("/sys/class/power_supply/BAT1/", True) Or Exist("/sys/class/power_supply/BAT0/", True) Then
  Label177.Text = "Alarm:  " & battery.alarm
@@ -622,17 +622,17 @@ Public Sub battery_info()
  Label191.Text = "Voltage min design:  " & battery.voltage_min_design
  Label192.Text = "Voltage now:  " & battery.voltage_now
  Endif
- 
+
 End
 
 Public Sub Button7_Click()
   Dim packages As String
-  If Exist("/var/lib/dpkg/status")
-  Shell "grep \"^Status: install ok installed\" /var/lib/dpkg/status | wc -l" Wait To packages
+  If ChkPrm.ChkExec("dpkg") = True
+  Shell "dpkg --get-selections | wc -l" Wait To packages
   Endif
   If ChkPrm.ChkExec("rpm") = True And IsNull(packages) = True Then
   Shell "rpm -qa | wc -l" Wait To packages
-  Endif 
+  Endif
   If ChkPrm.ChkExec("pacman") = True Then
   Shell "pacman -Q|wc -l" Wait To packages
   Endif
@@ -663,7 +663,7 @@ Public Sub ComboBox4_Click()
 End
 
 Public Sub refreshing()
- 
+
  TextBox29.Text = "Model: " & Disk_Drives.device_model
  TextBox30.Text = "Vendor: " & Disk_Drives.device_vendor
  Label38.Text = "Part size: " & Disk_Drives.partition_size
@@ -675,7 +675,7 @@ Public Sub refreshing()
  Label44.Text = "Modalias: " & Disk_Drives.modalias
  Label46.Text = "Ext range: " & Disk_Drives.ext_range
  Label47.Text = "Range: " & Disk_Drives.range
- 
+
  Label49.Text = "Add random: " & Disk_Drives.add_random
  Label49.Tooltip = "This file allows to trun off the disk entropy contribution. \n"
                    "Default value Of this file Is '1'(on)."
@@ -692,31 +692,31 @@ Public Sub refreshing()
                    "To the maximum number Of bytes that can be discarded In a single operation.\n"
                    "Discard requests issued To the device must Not exceed this limit.A discard_max_bytes\n"
                    "value Of 0 means that the device does Not support discard functionality."
- 
+
  Label52.Text = "Discard zeroes data: " & Disk_Drives.discard_zeroes_data
  Label52.Tooltip = "When read, this file will show if the discarded block are zeroed by the device Or not.\n"
                    "If its value Is '1' the blocks are zeroed otherwise not.\n"
-                   
+
  Label53.Text = "HW sector size: " & Disk_Drives.hw_sector_size
  Label53.Tooltip = "This is the hardware sector size of the device, in bytes."
- 
+
  Label54.Text = "Max HW sectors kb: " & Disk_Drives.max_hw_sectors_kb
  Label54.Tooltip = "This is the maximum number of kilobytes supported in a single data transfer."
- 
+
  Label55.Text = "Max sectors kb: " & Disk_Drives.max_sectors_kb
  Label55.Tooltip = "This is the maximum number of kilobytes that the block layer will allow\n"
                    "For a filesystem request.\n"
                    "Must be smaller than Or equal To the maximum size allowed by the hardware."
- 
+
  Label56.Text = "Max segments: " & Disk_Drives.max_segments
  Label56.Tooltip = "Maximum number of segments of the device."
- 
+
  Label57.Text = "Max segment size: " & Disk_Drives.max_segment_size
  Label57.Tooltip = "Maximum segment size of the device."
- 
+
  Label58.Text = "Read ahead kb: " & Disk_Drives.read_ahead_kb
  Label59.Text = "..:Scheduler:.. \n " & Disk_Drives.scheduler
- 
+
 Label126.Text = "Logical block size: " & Disk_Drives.logical_block_size
 Label126.Tooltip = "This is the logcal block size of the device, in bytes."
 
@@ -732,20 +732,20 @@ Label131.Tooltip = "This is the optimal io size reported by the device."
 Label132.Text = "Physical block size: " & Disk_Drives.physical_block_size
 Label133.Text = "Rotational: " & Disk_Drives.rotational
 Label134.Text = "Rq affinity: " & Disk_Drives.rq_affinity
- 
+
  Label123.Text = "BDI max_ratio: " & Disk_Drives.max_ratio
  Label124.Text = "BDI min_ratio: " & Disk_Drives.min_ratio
  Label125.Text = "BDI stable pages required: " & Disk_Drives.stable_pages_required
- 
+
  Label45.Text = Choose(CInt(CVariant(Disk_Drives.removable)) + 1, "Removable: No", "Removable: Yes")
  ' If Disk_Drives.removable Like "0" Then
  '  Label45.Text = "Removable: No"
  ' Endif
- ' 
+ '
  ' If Disk_Drives.removable Like "1" Then
  ' Label45.Text = "Removable: Yes"
  ' Endif
- 
+
  If IsNull(ComboBox3.Text) = False Then
     If Disk_Drives.check_swap Like "*" & ComboBox3.Text & "*" Then
       Label48.Visible = True
@@ -756,13 +756,13 @@ Label134.Text = "Rq affinity: " & Disk_Drives.rq_affinity
  Else
   Label48.Visible = False
  Endif
- 
+
   TextBox48.Text = Disk_Drives.mount_point
   TextBox52.Text = Disk_Drives.device_uuid
   TextBox53.Text = Disk_Drives.mount_widtch
   Label16.Text = Disk_Drives.CONNECTED_PORT
   Label17.Text = Disk_Drives.Logical_Size
- 
+
  Label251.Text = "HW SATA SPD Limit:" & Space$(2) & Disk_Drives.hw_sata_spd_limit
  Label251.Tooltip = "Maximum speed supported by the connected SATA device."
  'Max HDD/SSD Sata Speed :-)
@@ -779,19 +779,19 @@ Label134.Text = "Rq affinity: " & Disk_Drives.rq_affinity
  'Set Pictures for USB
  PictureBox5.Picture = Disk_Drives.USB_PIC
  PictureBox4.Picture = Disk_Drives.SATA_PIC
- 
+
  If Disk_Drives.USB_SPEED = Null Then
   Panel2.Visible = False
   Else
   Panel2.Visible = True
  Endif
- 
+
  If Disk_Drives.sata_spd = Null Then
   Panel1.Visible = False
   Else
   Panel1.Visible = True
  Endif
- 
+
 End
 
 Public Sub ComboBox5_Click()
@@ -884,7 +884,7 @@ Public Sub Button15_Click()
 End
 
 Public Sub Orientation_Top_Click()
- 
+
  TabStrip1.Orientation = Align.Top
  Me.W = Int(Label25.X + 365)
  TabStrip1.W = Int(Label25.X + 365)
@@ -892,7 +892,7 @@ Public Sub Orientation_Top_Click()
 End
 
 Public Sub Orientation_Bottom_Click()
- 
+
  TabStrip1.Orientation = Align.Bottom
  Me.W = Int(Label25.X + 365)
  TabStrip1.W = Int(Label25.X + 365)
@@ -900,16 +900,16 @@ Public Sub Orientation_Bottom_Click()
 End
 
 Public Sub Orientation_Left_Click()
- 
+
  TabStrip1.Orientation = Align.Left
  Me.W = Int(Label25.X + 390)
  TabStrip1.W = Int(Label25.X + 390)
  Button1.X = Int(Label25.X + 325)
- 
+
 End
 
 Public Sub Orientation_Right_Click()
- 
+
  TabStrip1.Orientation = Align.Right
  Me.W = Int(Label25.X + 390)
  TabStrip1.W = Int(Label25.X + 390)
@@ -934,7 +934,7 @@ Public Sub Reportthisw_Click()
    FReport_Gen.CheckBox12.Value = True
  End Select
  FReport_Gen.Show
- 
+
 End
 
 Public Sub TabStrip1_Click()
@@ -1016,10 +1016,10 @@ Public Sub Button1_Click()
 End
 
 Public Sub Form_Move()
- 
+
  Settings["Window/X"] = Me.X
  Settings["Window/Y"] = Me.Y
- 
+
 End
 
 Public Sub Form_CloseWindows()
@@ -1040,7 +1040,7 @@ Public Sub Form_CloseWindows()
 End
 
 Public Sub Form_Close()
- 
+
   Form_CloseWindows()
   Settings["Window/X"] = Me.X
   Settings["Window/Y"] = Me.Y
@@ -1048,7 +1048,7 @@ Public Sub Form_Close()
   Logs("Good bye!", Logger.Info)
   'MLibcpuid.DATAT.Clear
   Me.Close
- 
+
 End
 
 Public Sub MenuButton1_Click()
@@ -1069,10 +1069,10 @@ Public Sub Savevalid_Click()
   Kill Dialog.Path
  Endif
  Try Copy User.Home & "/.i-nex/VALID" To Dialog.Path
- If Error Then 
+ If Error Then
   Logs("Not chosen where you want to save the report", Logger.Error)
  Endif
- 
+
 End
 
 Public Sub Button17_Click()

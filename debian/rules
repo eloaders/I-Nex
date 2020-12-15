@@ -1,18 +1,42 @@
 #!/usr/bin/make -f
-LSB_CS = 		$(shell lsb_release -cs)
+# -*- mode: makefile-gmake; coding: utf-8 -*-
 
-ifeq ($(LSB_CS),lucid)
-COMPRESSION = 		-- -z9 -Zgzip
-else
-COMPRESSION = 		-- -z9 -Zxz
+BASH_PATH                  ::= $(shell which bash)
+DEB_BUILD_MAINT_OPTIONS    ::= hardening=+all
+DH_VERBOSE                 ::= 1
+DPKG_EXPORT_BUILDFLAGS     ::= 1
+SHELL                      ::= $(shell realpath -Leq $(BASH_PATH))
+SHELL                       ?= /bin/sh
+UBUNTUVER                  ::= $(shell lsb_release -rs | cut -c-5)
+
+ifeq ($(shell dpkg-vendor --query Vendor),Ubuntu)
+ifneq ($(UBUNTUVER),$(shell printf "$(UBUNTUVER)\n17.10\n" | sort -g | head -1))
+	DEB_BUILD_MAINT_OPTIONS += future=+lfs
+	DPKG_EXPORT_BUILDTOOLS ::= 1
+    include /usr/share/dpkg/buildtools.mk
 endif
-override_dh_autoreconf:
-	cd I-Nex && autoreconf -i
-override_dh_auto_configure:
-	dh_auto_configure --sourcedirectory=I-Nex
-override_dh_builddeb:
-	dh_builddeb $(COMPRESSION)
-override_dh_fixperms:
-	dh_fixperms
+ifneq ($(UBUNTUVER),$(shell printf "$(UBUNTUVER)\n19.04\n" | sort -g | head -1))
+	DEB_BUILD_MAINT_OPTIONS += reproducible=+fixfilepath
+endif
+endif
+
+include /usr/share/dpkg/default.mk
+export DEB_BUILD_MAINT_OPTIONS DH_VERBOSE
+
+
 %:
-	dh $@ --with autoreconf
+	dh $@ -v
+
+
+override_dh_autoreconf:
+	dh_autoreconf -O-v -DI-Nex
+
+override_dh_auto_configure:
+	cd I-Nex && ./configure --build=$(DEB_HOST_MULTIARCH) --prefix=/usr \
+		--sysconfdir=/etc --runstatedir=/run --localstatedir=/var \
+		--libdir=/usr/lib/$(DEB_HOST_MULTIARCH) --includedir=/usr/include\
+		--infodir=/usr/share/info --mandir=/usr/share/man --disable-silent-rules
+
+override_dh_auto_install:
+	dh_auto_install -O-v --exclude=$(CURDIR)/debian/i-nex/usr/bin/i-nex \
+		--exclude=$(CURDIR)/debian/i-nex/usr/share/doc/i-nex/Changelog.md --

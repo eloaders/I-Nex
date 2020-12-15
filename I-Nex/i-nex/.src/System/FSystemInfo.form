@@ -15,8 +15,8 @@
     Spacing = True
     { PictureBox1 PictureBox
       MoveScaled(0,0,7,7)
-      Picture = Picture["AppIcons/computer.png"]
       AutoResize = True
+      Picture = Picture["AppIcons/computer.png"]
       Alignment = Align.Center
     }
     { TextLabel1 TextLabel
@@ -51,7 +51,7 @@
     }
     { btnCopy Button
       MoveScaled(23,0,18,4)
-      Text = ("&Copy")
+      Text = Shortcut(("Copy"), "C")
       Picture = Picture["AppIcons/edit-copy.png"]
     }
     { btnClose Button

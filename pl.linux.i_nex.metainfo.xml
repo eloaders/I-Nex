@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>pl.linux.i_nex</id>
+  <name>I-Nex</name>
+  <summary>A system hardware and configuration inventory tool</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LGPL-3.0-or-later AND GPL-3.0-or-later</project_license>
+  <icon type="remote" width="256" height="256">
+    https://raw.githubusercontent.com/i-nex/I-Nex/master/pixmaps/i-nex.png
+  </icon>
+  <description>
+    <p>
+      I-Nex is an application that gathers information about the hardware
+      components installed in your system the configuration of the software
+      using it, then neatly organizes it using an user interface similar to the
+      popular Windows tool CPU-Z.
+    </p>
+    <p>
+      I-Nex can display information for the following components: CPU, GPU, RAM,
+      motherboard, sound, permanent and removable storage devices (hard drives),
+      network interfaces and USB, as well as some system info like the hostname,
+      GNU/Linux distribution and version, Xorg, GCC, GLX versions and Linux
+      kernel info.
+    </p>
+    <p>
+      Besides being able to display hardware information, I-Nex can also
+      generate an advanced report with options to select what to include and,
+      optionally, send the report to a service such as Pastebin (and others) to
+      easily share with someone who is trying to help you troubleshoot a problem
+      remotely. It also features an option to take a screenshot of the I-Nex
+      window directly from the application.
+    </p>
+    <p>
+      The difference between I-Nex and the other hardware information GUI tools
+      available for Linux is that the information is better organized, displayed
+      faster (when compared to lshw-gtk, for instance) and presented in a way
+      that’s easier to understand.
+    </p>
+  </description>
+  <launchable type="desktop-id">pl.linux.i_nex.desktop</launchable>
+  ​<categories>
+    <category>System</category>
+  ​</categories>
+  <provides>
+  ​  <binary>i-nex.gambas</binary>
+  ​</provides>
+  <releases>
+  ​  <release version="7.6.1" date="2019-12-11" urgency="medium">
+    ​  <description>
+      ​  <p>
+          This release completes the port of the application from the
+          deprecated Qt4 framework to the current Qt5. It also marks the
+          transfer of essential functions from an app-specific binary to a
+          standard shared library, libcpuid14.
+        </p>
+  ​    </description>
+  ​    <url>https://github.com/i-nex/I-Nex/releases/tag/7.6.1</url>
+      <artifacts>
+  ​      <artifact type="source">
+    ​      <location>
+            https://github.com/i-nex/I-Nex/archive/7.6.1.tar.gz
+          </location>
+    ​      <checksum type="sha256">
+            81236eb729fbd29b356762c0883fe295cf1181cc7d14f00b1dfcceb517b47960
+          </checksum>
+    ​      <size type="download">3915869</size>
+        </artifact>
+  ​    </artifacts>
+  ​  </release>
+  ​</releases>
+  <screenshots>
+    <screenshot type="default">
+      <image type="source" width="489" height="569">
+        https://i-nex.linux.pl/wp-content/uploads/2016/09/09072016074858692-1.png
+      </image>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="489" height="569">
+        https://i-nex.linux.pl/wp-content/uploads/2016/09/09072016080049101-1.png
+      </image>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="489" height="569">
+        https://i-nex.linux.pl/wp-content/uploads/2016/09/09072016080027538-1.png
+      </image>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://i-nex.linux.pl/</url>
+  <url type="bugtracker">https://github.com/i-nex/I-Nex/issues</url>
+  <url type="donation">
+    https://www.paypal.com/cgi-bin/webscr%3Fcmd%3D_s-xclick%26hosted_button_id%3D6QHXF6TLWAWKA%26source%3Durl
+  </url>
+  <developer_name>eloaders</developer_name>
+  <update_contact>eloaders_AT_linux.pl</update_contact>
+  <content_rating type="oars-1.1" />
+</component>

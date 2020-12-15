@@ -1,12 +1,41 @@
+i-nex (7.6.1-2) groovy; urgency=medium
+
+  * Rebuild against libcpuid15 from released with Ubuntu 20.10 "Groovy"
+
+ -- Peter J. Mello <admin@petermello.net>  Sun, 06 Dec 2020 14:58:39 -0800
+
+i-nex (7.6.1-1) focal; urgency=medium
+
+  * New upstream release.
+  * Port to new Gambas framework built over Qt5
+  * Update Makefile to allow concurrent processes during builds
+  * Add pastebinit integration for one-click sharing of system reports
+  * Add button to copy values from info tables to clipboard
+  * Add support for scanning for drives on NVMe bus
+  * Add EEPROM scanning function over I2C via decode-dimms to memory report
+  * Add About tab to interface for application metadata
+  * Fix sorting of entries in drop-down menus
+  * Improve removable drive recognition (LP: #1634466)
+  * debian/control:
+    + Bump to debhelper level 12 via B-D on debhelper-compat
+    + Bump S-V to 4.5.0, removed debian/triggers file
+    + Add R³ field with 'no' value
+    - Drop versions on dependencies with values < oldoldstable archive
+  * d/copyright:
+    + Add early contributors and update header URL to https
+    * Update proprietary usage statements, remove ones no longer inc. in package
+
+ -- Peter J. Mello <admin@petermello.net>  Tue, 05 May 2020 16:37:56 -0700
+
 i-nex (7.6.0) stable; urgency=medium
-  
+
   * Update for version 7.6.0
   * Changelog for version 7.6.0 see file /usr/share/doc/i-nex/changelog-7.6.0
 
  -- eloaders <eloaders@linux.pl>  Tue, 11 Oct 2016 08:40:19 +0200
 
 i-nex (7.4.0.1) stable; urgency=medium
-  
+
   * Update for version 7.4.0.1
   * Changelog for version 7.4.0 see file /usr/share/doc/i-nex/changelog-7.4.0
 
@@ -59,13 +88,13 @@ i-nex (0.6.0) stable; urgency=medium
   * Changelog for version 0.6.0 see file /usr/share/doc/i-nex/changelog-0.6.0
 
  -- eloaders <eloaders@linux.pl>  Fri, 24 Jan 2014 01:06:07 +0100
- 
+
 i-nex (0.5.8) stable; urgency=medium
 
   * Changelog for version 0.5.8 see file /usr/share/doc/i-nex/changelog-0.5.8
 
  -- eloaders <eloaders@linux.pl>  Tue, 24 Dec 2013 11:02:00 +0100
- 
+
 i-nex (0.5.6) stable; urgency=medium
 
   * Changelog for version 0.5.6 see file /usr/share/doc/i-nex/changelog-0.5.6
@@ -77,13 +106,13 @@ i-nex (0.5.4) stable; urgency=low
   * Changelog for version 0.5.4 see file /usr/share/doc/i-nex/changelog-0.5.4
 
  -- eloaders <eloaders@yahoo.com>  Fri, 18 Oct 2013 15:54:24 +0200
- 
+
 i-nex (0.5.2) stable; urgency=low
 
   * Changelog for version 0.5.2 see file /usr/share/doc/i-nex/changelog-0.5.2
 
  -- eloaders <eloaders@yahoo.com>  Fri, 04 Jan 2013 19:48:32 +0100
- 
+
 i-nex (0.5.1) stable; urgency=low
 
   * Changelog for version 0.5.1 see file /usr/share/doc/i-nex/changelog-0.5.1
@@ -167,11 +196,13 @@ i-nex (0.4.3) unstable; urgency=low
   * Add info to About window
     Main developer
     Main bug reporter
-  * Add new logo in about window.
-    Special thanks to: mmaciek12 http://mmaciek12.deviantart.com/art/CPU-Icon-281444281
+  * Add new logo in about window. (Thanks: mmaciek12)
+    <http://mmaciek12.deviantart.com/art/CPU-Icon-281444281>
   * Fix icons in forms
-  * Add depends: 
-    dpkg (>= 1.16), grep (>= 2.9), mount (>= 2.19), procps, x11-xserver-utils (>= 7.6), lsb-release (>= 4.0), bash (>= 4.2), coreutils (>= 8.5), sed (>= 4.2), pciutils, x11-utils (>= 7.6), mesa-utils (>= 7.6), hostname
+  * d/control: Add Build-Depends on dpkg (>= 1.16), grep (>= 2.9),
+    mount (>= 2.19), procps, x11-xserver-utils (>= 7.6), lsb-release (>= 4.0),
+    bash (>= 4.2), coreutils (>= 8.5), sed (>= 4.2), pciutils,
+    x11-utils (>= 7.6), mesa-utils (>= 7.6), hostname
   * Fix CPU tab TextArea to TextBox
     Strings font = Bold
   * Fix disable overlay-scrollbar
@@ -182,14 +213,14 @@ i-nex (0.4.3) unstable; urgency=low
   * Fix CPU tab
   * Fix Used
     add sed -n '1p'
-  * Fix font CPU Tab 
+  * Fix font CPU Tab
     Bold,10
   * Add HPanel, HBox
     Change size fonts, use system settings. Auto resize / expand
     CPU, Frame = The Main Information
     Graphic, Frame = OpenGl
   * Fix Bios. Detect Vendor,Date and Version
-  * + 531 
+  * + 531
     ProgressBar2.ToolTip = Disk_Drives.Used & "%"
     + 535
     ProgressBar2.ToolTip = "Unknown"
@@ -200,7 +231,10 @@ i-nex (0.4.3) unstable; urgency=low
     Set Icon and Text
   * Fix internet()
   * Fix uptime
-  * Update Depends: dpkg (>= 1.15), grep (>= 2.5), mount (>= 2.17), procps, x11-xserver-utils (>= 7.5), lsb-release (>= 4.0), bash (>= 4.1), coreutils (>= 7.4), sed (>= 4.2), pciutils, x11-utils (>= 7.5), mesa-utils (>= 7.6), hostname
+  * d/control: Update Build-Depends to dpkg (>= 1.15), grep (>= 2.5),
+    mount (>= 2.17), procps, x11-xserver-utils (>= 7.5), lsb-release (>= 4.0),
+    bash (>= 4.1), coreutils (>= 7.4), sed (>= 4.2), pciutils,
+    x11-utils (>= 7.5), mesa-utils (>= 7.6), hostname
   * Add USB_Drives.module
     Fix ComboBox Read Only = True
   * Bzr 103 New Version 0.4.3
@@ -213,24 +247,19 @@ i-nex (0.4.0) unstable; urgency=low
   * Remove: options, settings mangament, modules.
   * Fix version program. Not 0.3.5, correct to 0.3.3.
   * Fix Internet / Network
-  * Battery support on netbooks is active if exist patch to get informations from info file.
+  * Add battery support on netbooks if available from info file
   * Add Build Depends = gambas3-gb-dbus (>= 2.90.0)
   * Remove TextBox, TextLabel and fix Kernel Tab, System Tab
   * Move PictureBox on Graphic Tab.
   * Delete /src/i-nex/version, /src/i-nex/VERSION.
   * Label25.Text = Application.Name & " v: " & Application.version
   * Change: System Tab
-  * Add support for:
-                            Intel(R) Core(TM) i7 xxx (bug = black logo)
-                            Intel(R) Core(TM) i5 xxx
-  * Fix bug:
-                            /usr/bin/gbc3 -e -a -g -t -p -m  src/i-nex
-                            Finfosys.class:499: error: Unknown identifier: &1   Brightness
+  * Add support for Intel(R) Core(TM) i7/i5 xxx (bug = black logo)
+  * Fix bug: Finfosys.class:499: error: Unknown identifier: &1 Brightness
   * Add support: Intel(R) Celeron(R) M xxx
   * Add support: AMD Athlon(tm) 2 x3
   * Add Check for default display manager
-    Dim default_display_manager As Boolean = Exist("/etc/X11/default-display-manager")
-
+    Dim default_display_manager field if unavailable
     Debug "Check for default display manager"
     If default_display_manager = True Then
      Label4.Visible = True

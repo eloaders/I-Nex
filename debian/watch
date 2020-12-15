@@ -1,0 +1,4 @@
+version=4
+opts="filenamemangle=s%(?:.*?)?[-_]?v?(\d[\-+\.:\~\da-zA-Z]*)\.\
+(?i)(tar\.(xz|bz2|gz)|zip|tgz|tbz|txz)%@PACKAGE@-$1.$2%" \
+  https://github.com/i-nex/I-Nex/tags .*/v?@ANY_VERSION@@ARCHIVE_EXT@

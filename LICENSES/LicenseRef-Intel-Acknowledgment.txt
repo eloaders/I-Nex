@@ -1,0 +1,14 @@
+3D XPoint, Altera, APEX, AnyWAN, Arria, Avalon, Axxia, BunnyPeople, Celeron,
+Cilk, CONVERGATE, Cyclone, Docea, eASIC, easicopy, Enpirion, Hyperflex, Intel,
+the Intel logo, Intel Adaptix, Intel Agilex, Intel Atom, Intel CoFluent, Intel
+Core, Intel Inside, the Intel Inside logo, Intel Nervana, Intel Optane, Intel
+RealSense, Intel Shooting Star, Intel Sirius, Intel SpeedStep, Intel Unite,
+Intel vPro, Intel Xeon Phi, Iris, Itanium, MAX, Movidius, Myriad, neon, Nios,
+OpenVINO, the OpenVINO logo, Pentium, Puma, Quark, Quartus, SICOFI, Simics,
+SoftSilicon, Sound Mark, StarPro, Stratix, the Stratix logo, Stay With It, the
+Engineering Stay With It logo, StreamSight, Tarari, The Journey Inside,
+Thunderbolt, the Thunderbolt logo, Tofino, Transcede, Ultrabook, VTune, and
+Xeon logos and other brand artwork are trademarks of Intel Corporation or its
+subsidiaries. All rights reserved.
+
+Intel Corporation, 2200 Mission College Blvd., Santa Clara, CA 95052-8119, USA.

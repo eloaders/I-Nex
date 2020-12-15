@@ -15,7 +15,6 @@ BEGIN {
 		} else {
 			printCommit($2, $3, $4)
 		}
-
 	}
 }
 function printTag(input) {

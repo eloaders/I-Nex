@@ -1,0 +1,12 @@
+---
+Bug:
+  Database: "https://github.com/i-nex/I-Nex/issues"
+  Submit: "https://github.com/i-nex/I-Nex/issues/new/choose"
+Changelog: "https://github.com/i-nex/I-Nex/blob/master/Changelog.md"
+Donation: "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6QHXF6TLWAWKA&source=url"
+Other-References: "http://i-nex.linux.pl/about/"
+Repository: "https://github.com/i-nex/I-Nex.git"
+Repository-Browse: "https://github.com/i-nex/I-Nex"
+Screenshots: "http://i-nex.linux.pl/screenshots/"
+Security-Contact: "eloaders <eloaders@linux.pl>"
+...

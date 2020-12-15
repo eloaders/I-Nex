@@ -1,2 +1,59 @@
-po/mo
-po/he.po
+# SPDX-FileCopyrightText: © 2008-2012 Stéphane Graber <stgraber@stgraber.org>
+# SPDX-FileCopyrightText: © 2020 Peter J. Mello <admin@petermello.net>
+#
+# SPDX-License-Identifier: CC0-1.0
+# ------------------------------------------------------------------------------
+
+#---- Gambas files to ignore (v1)
+.gambas/*
+.kdbg*
+.*.prof
+*.gambas
+*~
+core.*
+vgcore.*
+.lock
+core
+vgcore
+#----
+
+# Don't accidentally publish your GPG secret keyring
+secring.*
+
+# CudaText project files are user-specific
+*.cuda-proj
+
+# Kate swap files
+.*.kate-swp
+.swp.*
+
+# Sublime Text
+## Workspace files are user-specific
+*.sublime-workspace
+## Sublime-GitHub package stores user's GitHub tokens here
+GitHub.sublime-settings
+## SFTP configuration/credentials file
+sftp-config.json
+## Package control specific files
+Package Control.last-run
+Package Control.ca-list
+Package Control.ca-bundle
+Package Control.system-ca-bundle
+Package Control.cache/
+Package Control.ca-certs/
+Package Control.merged-ca-bundle
+Package Control.user-ca-bundle
+oscrypto-ca-bundle.crt
+bh_unicode_properties.cache
+## Cache files
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# Visual Studio Code
+.vscode/*
+## All but four files are installation-specific
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
